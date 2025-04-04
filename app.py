@@ -1,12 +1,14 @@
-from flask import Flask, request, jsonify
-from flask_cors import CORS
+import os
+from dotenv import load_dotenv
+from flask import Flask
+
+load_dotenv()  # Load environment variables
 
 app = Flask(__name__)
-CORS(app)
 
-@app.route("/")
-def home():
-    return jsonify({"message": "Flask API is working!"})
+OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
 
-if __name__ == "__main__":
-    app.run(debug=True)
+if OPENAI_API_KEY:
+    print("✅ API Key Loaded Successfully!")
+else:
+    print("❌ API Key Missing!")
